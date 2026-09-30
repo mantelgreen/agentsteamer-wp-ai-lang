@@ -1,0 +1,318 @@
+/*
+ * AgentSteamer WP AI Lang — admin styles.
+ */
+
+.asl-wrap {
+	max-width: 1100px;
+}
+
+.asl-wrap h1 {
+	font-weight: 700;
+}
+
+.asl-sub {
+	color: #646970;
+	margin-top: 4px;
+}
+
+.asl-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 16px 20px;
+	margin: 16px 0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.asl-card h2 {
+	margin-top: 0;
+	font-size: 15px;
+}
+
+.asl-cards {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin: 16px 0;
+}
+
+.asl-stat {
+	flex: 1 1 180px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.asl-stat-num {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 1.1;
+	color: #2271b1;
+}
+
+.asl-stat-label {
+	color: #646970;
+	margin-top: 4px;
+}
+
+.asl-badge {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: 999px;
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	font-size: 12px;
+	line-height: 1.8;
+}
+
+.asl-badge-ok {
+	background: #edfaef;
+	border-color: #b8e6bf;
+	color: #0a7227;
+}
+
+.asl-badge-warn {
+	background: #fef8ee;
+	border-color: #f0c33c;
+	color: #8a6116;
+}
+
+.asl-hidden {
+	display: none;
+}
+
+.asl-code {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 8px 12px;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.asl-inline-form input[type="text"],
+.asl-inline-form select {
+	margin-right: 6px;
+}
+
+.asl-danger {
+	color: #b32d2e;
+}
+
+.asl-actions {
+	margin-top: 12px;
+}
+
+.asl-inline-status {
+	margin-left: 8px;
+	color: #646970;
+}
+
+.asl-diff {
+	display: flex;
+	gap: 16px;
+	margin: 8px 0;
+}
+
+.asl-diff-col {
+	flex: 1 1 50%;
+	min-width: 0;
+}
+
+.asl-diff-col h4 {
+	margin: 0 0 4px;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #646970;
+}
+
+.asl-diff-col pre {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 8px;
+	max-height: 220px;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-break: break-word;
+	margin: 0;
+}
+
+.asl-audit-items {
+	margin: 4px 0 4px 18px;
+	list-style: disc;
+}
+
+.asl-metabox .asl-label {
+	font-weight: 600;
+}
+
+.asl-hint {
+	color: #646970;
+	font-size: 12px;
+}
+
+.asl-translations {
+	margin: 4px 0;
+}
+
+.asl-translations li {
+	margin-bottom: 4px;
+}
+
+.asl-flag-code {
+	display: inline-block;
+	min-width: 32px;
+	font-weight: 600;
+	color: #2271b1;
+}
+
+.asl-editor-translations {
+	margin: 6px 0;
+}
+
+.asl-editor-tr {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 8px;
+	flex-wrap: wrap;
+}
+
+.asl-editor-actions {
+	display: inline-flex;
+	gap: 6px;
+}
+
+/* ---------- 模釜宣传 banner ---------- */
+.asl-banner {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 22px;
+	padding: 22px 26px;
+	margin: 0 0 18px;
+	border-radius: 12px;
+	overflow: hidden;
+	background: #17152b;
+}
+
+.asl-banner::before {
+	content: "";
+	position: absolute;
+	left: -70px;
+	top: 50%;
+	width: 300px;
+	height: 300px;
+	transform: translateY(-50%);
+	background: radial-gradient(circle, rgba(99, 102, 241, .55) 0%, rgba(99, 102, 241, 0) 60%);
+	pointer-events: none;
+}
+
+.asl-banner-emblem {
+	position: relative;
+	z-index: 1;
+	flex: 0 0 auto;
+}
+
+.asl-banner-emblem img {
+	display: block;
+	width: 46px;
+	height: 46px;
+	filter: brightness(0) invert(1);
+}
+
+.asl-banner-body {
+	position: relative;
+	z-index: 1;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.asl-banner-title {
+	margin: 0 0 6px;
+	font-family: "Space Grotesk", -apple-system, "Segoe UI", system-ui, sans-serif;
+	font-size: 19px;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	color: #ffffff;
+}
+
+.asl-banner-sub {
+	margin: 0;
+	color: #b7bde2;
+	font-size: 13px;
+	line-height: 1.65;
+	max-width: 64ch;
+}
+
+.asl-banner-price {
+	position: relative;
+	z-index: 1;
+	flex: 0 0 auto;
+	padding-left: 22px;
+	border-left: 1px solid rgba(255, 255, 255, .16);
+}
+
+.asl-price-lead {
+	display: block;
+	font-size: 11px;
+	color: #b7bde2;
+	margin-bottom: 4px;
+}
+
+.asl-price-main {
+	display: block;
+	font-family: "Space Grotesk", -apple-system, "Segoe UI", system-ui, sans-serif;
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.02em;
+	color: #ffffff;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.asl-price-unit {
+	font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+	font-size: 12px;
+	font-weight: 500;
+	color: #b7bde2;
+	margin-left: 3px;
+	letter-spacing: 0;
+}
+
+.asl-wrap .asl-banner-cta.button {
+	position: relative;
+	z-index: 1;
+	flex: 0 0 auto;
+	background: #ffffff;
+	border-color: #ffffff;
+	color: #2a2750;
+	font-weight: 600;
+	border-radius: 8px;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.asl-wrap .asl-banner-cta.button:hover,
+.asl-wrap .asl-banner-cta.button:focus {
+	background: #eef0ff;
+	border-color: #eef0ff;
+	color: #2a2750;
+}
+
+@media (max-width: 782px) {
+	.asl-wrap .asl-banner {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+	}
+
+	.asl-banner-price {
+		padding-left: 0;
+		border-left: 0;
+	}
+}
+

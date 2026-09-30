@@ -1,0 +1,150 @@
+/*
+ * Language switcher (custom dropdown).
+ * Uses the AgentSteamer theme tokens when present, with brand fallbacks so it
+ * looks intentional on any theme.
+ */
+
+.asl-dd {
+	position: relative;
+	display: inline-block;
+}
+
+.asl-dd-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 12px;
+	border: 1px solid var(--as-border-strong, #d3d8f6);
+	border-radius: 10px;
+	background: transparent;
+	color: var(--as-text, #1e2235);
+	font: inherit;
+	font-size: 13px;
+	line-height: 1.2;
+	transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.asl-dd-toggle:hover {
+	border-color: var(--as-accent, #6366f1);
+	background: var(--as-accent-tint, #eef0ff);
+	color: var(--as-accent-strong, #4f46e5);
+}
+
+.asl-dd-toggle:focus-visible {
+	outline: 2px solid var(--as-accent, #6366f1);
+	outline-offset: 2px;
+}
+
+.asl-dd-value {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-width: 0;
+}
+
+.asl-dd-name {
+	white-space: nowrap;
+}
+
+.asl-dd-chevron {
+	flex: none;
+	transition: transform 0.2s var(--as-ease, ease);
+}
+
+.asl-dd.is-open .asl-dd-chevron {
+	transform: rotate(180deg);
+}
+
+.asl-dd-menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	z-index: 60;
+	min-width: 208px;
+	margin: 0;
+	padding: 6px;
+	list-style: none;
+	background: var(--as-surface, #ffffff);
+	border: 1px solid var(--as-border, #e4e7fb);
+	border-radius: 14px;
+	box-shadow: var(--as-shadow-card, 0 14px 34px -18px rgba(30, 34, 53, 0.16));
+	opacity: 0;
+	transform: translateY(-4px);
+	pointer-events: none;
+	transition: opacity 0.16s ease, transform 0.16s var(--as-ease, ease);
+}
+
+.asl-dd.is-open .asl-dd-menu {
+	opacity: 1;
+	transform: translateY(0);
+	pointer-events: auto;
+}
+
+.asl-dd-item {
+	margin: 0;
+}
+
+.asl-dd-item a {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 9px 10px;
+	border-radius: 9px;
+	color: var(--as-text, #1e2235);
+	font-size: 13px;
+	transition: background-color 0.15s, color 0.15s;
+}
+
+.asl-dd-item a:hover,
+.asl-dd-item a:focus-visible {
+	background: var(--as-accent-tint, #eef0ff);
+	color: var(--as-accent-strong, #4f46e5);
+	outline: none;
+}
+
+.asl-dd-item.is-current a {
+	background: var(--as-accent-tint, #eef0ff);
+	color: var(--as-accent-strong, #4f46e5);
+	font-weight: 600;
+}
+
+.asl-dd-item-name {
+	flex: 1 1 auto;
+	white-space: nowrap;
+}
+
+.asl-dd-code {
+	font-family: var(--as-font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+	font-size: 11px;
+	letter-spacing: 0.02em;
+	color: var(--as-text-3, #626a8c);
+}
+
+.asl-dd-item.is-current .asl-dd-code {
+	color: var(--as-accent-strong, #4f46e5);
+}
+
+.asl-flag {
+	display: inline-flex;
+	justify-content: center;
+	flex: none;
+	width: 20px;
+	font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui, sans-serif;
+	font-size: 15px;
+	line-height: 1;
+}
+
+.asl-flag-img {
+	flex: none;
+	width: 20px;
+	height: 14px;
+	border-radius: 2px;
+	object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.asl-dd-menu,
+	.asl-dd-chevron {
+		transition: none;
+	}
+}

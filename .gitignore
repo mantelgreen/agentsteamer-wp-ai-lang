@@ -1,0 +1,19 @@
+# Documentation (planning docs, not shipped)
+/doc/
+doc/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Dependencies / build
+node_modules/
+vendor/
+*.log
+
+# Local overrides
+wp-config.php
+*.zip
