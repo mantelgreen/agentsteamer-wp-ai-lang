@@ -210,7 +210,7 @@ class AgentSteamer_Lang_Admin {
 			<div class="asl-card">
 				<h2><?php esc_html_e( '前台使用', 'agentsteamer-lang' ); ?></h2>
 				<p><?php esc_html_e( '在主题中输出语言切换器：', 'agentsteamer-lang' ); ?></p>
-				<pre class="asl-code">&lt;?php agentsteamer_lang_switcher(); ?&gt;</pre>
+				<pre class="asl-code">&lt;?php agentsteamer_language_switcher(); ?&gt;</pre>
 				<p><?php esc_html_e( '或使用短代码：', 'agentsteamer-lang' ); ?> <code>[agentsteamer_lang_switcher]</code></p>
 			</div>
 		</div>
