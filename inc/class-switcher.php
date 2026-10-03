@@ -19,6 +19,7 @@ class AgentSteamer_Lang_Switcher {
 	 */
 	public function __construct() {
 		add_shortcode( 'agentsteamer_lang_switcher', array( $this, 'shortcode' ) );
+		add_shortcode( 'agentsteamer_language_switcher', array( $this, 'shortcode' ) );
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
 	}

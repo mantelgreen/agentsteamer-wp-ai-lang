@@ -64,7 +64,7 @@
 
 ## 使用
 
-- **语言切换器**：在主题中调用 `agentsteamer_lang_switcher()`，或使用短代码 `[agentsteamer_lang_switcher]`，或添加「语言切换器」小工具。
+- **语言切换器**：在主题中调用 `agentsteamer_language_switcher()`，或使用短代码 `[agentsteamer_language_switcher]`，或添加「语言切换器」小工具。
 - **文章语言**：在文章编辑页设置语言；在列表页可按语言筛选。
 - **AI 翻译**：在文章编辑页将内容翻译为其它语言，生成语言稿并进入审阅队列。
 
