@@ -41,6 +41,72 @@ class AgentSteamer_Lang_Updater {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
 		add_filter( 'plugins_api', array( $this, 'plugin_info' ), 20, 3 );
 		add_filter( 'upgrader_source_selection', array( $this, 'fix_source_dir' ), 10, 4 );
+		add_filter( 'upgrader_package_options', array( $this, 'allow_overwrite' ), 10, 1 );
+	}
+
+	/**
+	 * Force an overwrite when (re)installing this plugin from an uploaded ZIP.
+	 *
+	 * WordPress only overwrites an existing plugin folder when the request opts
+	 * in (`overwrite_package`), which a plain upload does not. Enable it here so
+	 * uploading a newer ZIP replaces the installed copy instead of erroring out.
+	 *
+	 * @param array $options Upgrader options.
+	 * @return array
+	 */
+	public function allow_overwrite( $options ) {
+		if ( empty( $options['hook_extra']['type'] ) || 'plugin' !== $options['hook_extra']['type'] ) {
+			return $options;
+		}
+		if ( empty( $options['destination'] ) || untrailingslashit( $options['destination'] ) !== untrailingslashit( WP_PLUGIN_DIR ) ) {
+			return $options;
+		}
+
+		if ( ! empty( $options['hook_extra']['plugin'] ) ) {
+			// Regular update: only touch our own plugin.
+			if ( self::BASENAME === $options['hook_extra']['plugin'] ) {
+				$options['clear_destination'] = true;
+			}
+			return $options;
+		}
+
+		// Fresh upload: inspect the package to confirm it is our plugin.
+		if ( ! empty( $options['package'] ) && $this->package_is_ours( $options['package'] ) ) {
+			$options['clear_destination'] = true;
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Whether a ZIP package contains this plugin's main file one level deep.
+	 *
+	 * @param string $package Local package path.
+	 * @return bool
+	 */
+	protected function package_is_ours( $package ) {
+		if ( ! is_string( $package ) || ! is_file( $package ) || ! class_exists( 'ZipArchive' ) ) {
+			return false;
+		}
+
+		$zip = new ZipArchive();
+		if ( true !== $zip->open( $package ) ) {
+			return false;
+		}
+
+		$main  = basename( self::BASENAME );
+		$match = false;
+		$count = $zip->numFiles;
+		for ( $i = 0; $i < $count; $i++ ) {
+			$name = (string) $zip->getNameIndex( $i );
+			if ( preg_match( '#^[^/]+/' . preg_quote( $main, '#' ) . '$#', $name ) ) {
+				$match = true;
+				break;
+			}
+		}
+		$zip->close();
+
+		return $match;
 	}
 
 	/**
@@ -175,19 +241,51 @@ class AgentSteamer_Lang_Updater {
 	 */
 	public function fix_source_dir( $source, $remote_source, $upgrader, $hook_extra = array() ) {
 		global $wp_filesystem;
-		if ( empty( $hook_extra['plugin'] ) || self::BASENAME !== $hook_extra['plugin'] ) {
-			return $source;
-		}
+
 		if ( ! $wp_filesystem ) {
 			return $source;
 		}
-		$desired = trailingslashit( $remote_source ) . self::SLUG;
-		if ( $source === trailingslashit( $desired ) || $wp_filesystem->exists( $desired ) ) {
+
+		// Only act on plugin operations, and never on another plugin's update.
+		if ( ! empty( $hook_extra['type'] ) && 'plugin' !== $hook_extra['type'] ) {
 			return $source;
+		}
+		if ( ! empty( $hook_extra['plugin'] ) && self::BASENAME !== $hook_extra['plugin'] ) {
+			return $source;
+		}
+
+		$main_name = basename( self::BASENAME );
+
+		// Locate our main file: directly in the source, or in a single nested folder.
+		if ( ! $wp_filesystem->exists( trailingslashit( $source ) . $main_name ) ) {
+			$files = $wp_filesystem->dirlist( $source );
+			if ( is_array( $files ) && 1 === count( $files ) ) {
+				$nested = trailingslashit( $source ) . key( $files );
+				if ( $wp_filesystem->exists( trailingslashit( $nested ) . $main_name ) ) {
+					$source = $nested;
+				}
+			}
+		}
+		if ( ! $wp_filesystem->exists( trailingslashit( $source ) . $main_name ) ) {
+			return $source; // not our plugin.
+		}
+
+		// Rename the folder in place so its basename matches the plugin slug.
+		// The upgrader derives the destination folder from this basename, so the
+		// package installs into (and overwrites) the correct plugin directory.
+		$parent  = dirname( untrailingslashit( $source ) );
+		$desired = trailingslashit( $parent ) . self::SLUG;
+		if ( $source === trailingslashit( $desired ) ) {
+			return $source; // already the correct folder.
+		}
+
+		if ( $wp_filesystem->exists( $desired ) ) {
+			$wp_filesystem->delete( $desired, true );
 		}
 		if ( $wp_filesystem->move( $source, $desired ) ) {
 			return trailingslashit( $desired );
 		}
+
 		return $source;
 	}
 }
